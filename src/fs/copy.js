@@ -12,7 +12,16 @@ const copy = async () => {
             else if(err.code === 'ENOENT'){
                 fs.mkdir(pathFolder, (err)=>{
                     if(err) throw err;
+                    fs.readdir(path.join(__dirname, 'files'), (err, files)=>{
+                        if(err) throw err;
+                        files.forEach(file =>{
+                            fs.copyFile(path.join(__dirname, 'files',`${file}`), path.join(__dirname, 'files_copy', `${file}`), (err)=>{
+                                if(err) throw err;
+                            })
+                        })
+                    })
                 })
+                
                 console.log('Folder was create')
             }
             
